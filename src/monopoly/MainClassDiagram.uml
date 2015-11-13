@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="520.3374999999999" y="748.0">monopoly.model.fields.StreetField</node>
+    <node x="1112.6651041666664" y="264.5">monopoly.model.DiceRolledListener</node>
+    <node x="1319.9416666666666" y="229.5">monopoly.model.Die</node>
+    <node x="579.6651041666664" y="103.0">monopoly.model.Player</node>
+    <node x="0.0" y="1048.0">monopoly.model.MonopolyConstants</node>
+    <node x="474.9111111111109" y="881.0">monopoly.TextBasedDriver</node>
+    <node x="747.0762152777775" y="748.0">monopoly.model.fields.ShippingCompany</node>
+    <node x="738.6651041666664" y="0.0">monopoly.model.PlayerListener</node>
+    <node x="256.99999999999994" y="563.5">monopoly.model.fields.OtherField</node>
+    <node x="1132.2637152777775" y="552.0">monopoly.model.Dice</node>
+    <node x="707.6651041666664" y="540.5">monopoly.model.fields.OwnableField</node>
+    <node x="1002.3012152777775" y="748.0">monopoly.model.fields.Brewery</node>
+    <node x="0.0" y="552.0">monopoly.model.fields.GoToJail</node>
+    <node x="329.6374999999998" y="241.0">monopoly.model.fields.FieldInterface</node>
+    <node x="1347.2637152777775" y="529.0">monopoly.model.DieCup</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="monopoly.model.Dice" target="monopoly.model.DiceRolledListener">
+      <point x="-65.0" y="-61.5" />
+      <point x="1164.7637152777775" y="509.0" />
+      <point x="1197.1651041666664" y="509.0" />
+      <point x="0.0" y="26.5" />
+    </edge>
+    <edge source="monopoly.TextBasedDriver" target="monopoly.model.Player">
+      <point x="-11.400000000000091" y="-61.0" />
+      <point x="577.5111111111108" y="821.0" />
+      <point x="509.83749999999986" y="821.0" />
+      <point x="509.83749999999986" y="509.0" />
+      <point x="665.1651041666664" y="509.0" />
+      <point x="-171.0" y="188.0" />
+    </edge>
+    <edge source="monopoly.TextBasedDriver" target="monopoly.model.fields.FieldInterface">
+      <point x="-34.200000000000045" y="-61.0" />
+      <point x="554.7111111111109" y="831.0" />
+      <point x="498.83749999999986" y="831.0" />
+      <point x="498.83749999999986" y="499.0" />
+      <point x="481.5374999999999" y="499.0" />
+      <point x="43.40000000000009" y="50.0" />
+    </edge>
+    <edge source="monopoly.model.DieCup" target="monopoly.model.Die">
+      <point x="61.5" y="-84.5" />
+      <point x="1531.7637152777775" y="509.0" />
+      <point x="1473.0666666666666" y="509.0" />
+      <point x="65.625" y="61.5" />
+    </edge>
+    <edge source="monopoly.model.fields.GoToJail" target="monopoly.model.fields.FieldInterface">
+      <point x="0.0" y="-61.5" />
+      <point x="118.5" y="509.0" />
+      <point x="351.3374999999998" y="509.0" />
+      <point x="-86.80000000000001" y="50.0" />
+    </edge>
+    <edge source="monopoly.model.fields.Brewery" target="monopoly.model.fields.OwnableField">
+      <point x="-44.25" y="-26.5" />
+      <point x="1046.5512152777774" y="723.0" />
+      <point x="921.8317708333332" y="723.0" />
+      <point x="85.66666666666669" y="73.0" />
+    </edge>
+    <edge source="monopoly.model.Dice" target="monopoly.model.Die">
+      <point x="0.0" y="-61.5" />
+      <point x="1229.7637152777775" y="499.0" />
+      <point x="1341.8166666666666" y="499.0" />
+      <point x="-65.625" y="61.5" />
+    </edge>
+    <edge source="monopoly.TextBasedDriver" target="monopoly.model.fields.ShippingCompany">
+      <point x="34.200000000000045" y="-61.0" />
+      <point x="623.111111111111" y="831.0" />
+      <point x="835.5762152777775" y="831.0" />
+      <point x="0.0" y="26.5" />
+    </edge>
+    <edge source="monopoly.model.fields.Brewery" target="monopoly.model.Dice">
+      <point x="44.25" y="-26.5" />
+      <point x="1135.0512152777774" y="723.0" />
+      <point x="1164.7637152777775" y="723.0" />
+      <point x="-65.0" y="61.5" />
+    </edge>
+    <edge source="monopoly.model.fields.ShippingCompany" target="monopoly.model.fields.OwnableField">
+      <point x="0.0" y="-26.5" />
+      <point x="0.0" y="73.0" />
+    </edge>
+    <edge source="monopoly.TextBasedDriver" target="monopoly.model.fields.StreetField">
+      <point x="11.399999999999977" y="-61.0" />
+      <point x="600.3111111111109" y="861.0" />
+      <point x="608.8374999999999" y="861.0" />
+      <point x="0.0" y="26.5" />
+    </edge>
+    <edge source="monopoly.model.Player" target="monopoly.model.fields.OwnableField">
+      <point x="171.0" y="188.0" />
+      <point x="1007.1651041666664" y="509.0" />
+      <point x="921.8317708333332" y="509.0" />
+      <point x="85.66666666666669" y="-73.0" />
+    </edge>
+    <edge source="monopoly.TextBasedDriver" target="monopoly.model.fields.OtherField">
+      <point x="-79.80000000000007" y="-61.0" />
+      <point x="509.11111111111086" y="851.0" />
+      <point x="365.49999999999994" y="851.0" />
+      <point x="0.0" y="50.0" />
+    </edge>
+    <edge source="monopoly.TextBasedDriver" target="monopoly.model.Dice">
+      <point x="79.79999999999995" y="-61.0" />
+      <point x="668.7111111111109" y="851.0" />
+      <point x="1237.6916666666666" y="851.0" />
+      <point x="1237.6916666666666" y="723.0" />
+      <point x="1229.7637152777775" y="723.0" />
+      <point x="0.0" y="61.5" />
+    </edge>
+    <edge source="monopoly.TextBasedDriver" target="monopoly.model.fields.GoToJail">
+      <point x="-102.60000000000014" y="-61.0" />
+      <point x="486.3111111111108" y="861.0" />
+      <point x="118.5" y="861.0" />
+      <point x="0.0" y="61.5" />
+    </edge>
+    <edge source="monopoly.model.fields.StreetField" target="monopoly.model.fields.OwnableField">
+      <point x="0.0" y="-26.5" />
+      <point x="608.8374999999999" y="723.0" />
+      <point x="750.4984374999998" y="723.0" />
+      <point x="-85.66666666666669" y="73.0" />
+    </edge>
+    <edge source="monopoly.model.fields.OwnableField" target="monopoly.model.Player">
+      <point x="0.0" y="-73.0" />
+      <point x="0.0" y="188.0" />
+    </edge>
+    <edge source="monopoly.model.Player" target="monopoly.model.PlayerListener">
+      <point x="0.0" y="-188.0" />
+      <point x="0.0" y="26.5" />
+    </edge>
+    <edge source="monopoly.model.fields.OtherField" target="monopoly.model.fields.FieldInterface">
+      <point x="0.0" y="-50.0" />
+      <point x="365.49999999999994" y="509.0" />
+      <point x="394.73749999999984" y="509.0" />
+      <point x="-43.39999999999998" y="50.0" />
+    </edge>
+    <edge source="monopoly.model.fields.OwnableField" target="monopoly.model.fields.FieldInterface">
+      <point x="-85.66666666666669" y="-73.0" />
+      <point x="750.4984374999998" y="499.0" />
+      <point x="524.9374999999999" y="499.0" />
+      <point x="86.80000000000007" y="50.0" />
+    </edge>
+    <edge source="monopoly.TextBasedDriver" target="monopoly.model.fields.Brewery">
+      <point x="57.0" y="-61.0" />
+      <point x="645.9111111111109" y="841.0" />
+      <point x="1090.8012152777774" y="841.0" />
+      <point x="0.0" y="26.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.9602184087363494" x="836.3956133225021" y="593.2217709179529" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+
