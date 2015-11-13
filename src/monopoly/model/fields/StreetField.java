@@ -4,14 +4,18 @@ import monopoly.model.Player;
 
 /**
  * @author Niels Norberg
+ *         Represents a normal street which can be bought. No groupings are yet implemented.
+ *         Houses and hotels (upgrades) are not implemented yet either.
  */
 public class StreetField extends OwnableField {
     private int rent;
-    private int upgrades = 0;
+    private int upgrades = 0; // To be used for houses
+    private int groupId; // To be used for coloring and prices and whether upgrade is possible
 
-    public StreetField(String name, int number, int rent, int price) {
+    public StreetField(String name, int number, int rent, int price, int groupId) {
         super(name, number, price);
         this.rent = rent;
+        this.groupId = groupId;
     }
 
     @Override

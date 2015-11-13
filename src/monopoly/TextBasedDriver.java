@@ -33,7 +33,14 @@ public class TextBasedDriver implements PlayerListener {
     }
 
     public void populateFields() {
+        int groupId = 0;
+        int subVal = 0;
         for (int i = 0; i < MonopolyConstants.BOARDSIZE; i++) { // Initialize the board with different fields
+            if (subVal == 3) {
+                groupId++;
+                subVal = 0;
+            }
+            subVal++;
             switch (i + 1) {
                 case 1:    // Andre felter
                 case 3:
@@ -63,7 +70,7 @@ public class TextBasedDriver implements PlayerListener {
                     board[i] = new Brewery(MonopolyConstants.FIELD_NAMES[i], i + 1, diceCup, 150);
                     break;
                 default:    // Gader:
-                    board[i] = new StreetField(MonopolyConstants.FIELD_NAMES[i], i + 1, i * 3, i * 10);
+                    board[i] = new StreetField(MonopolyConstants.FIELD_NAMES[i], i + 1, i * 3, i * 10, groupId);
             }
         }
     }
@@ -101,10 +108,8 @@ public class TextBasedDriver implements PlayerListener {
                     break;
 
                 case "n":
-                    ArrayList<String> names = new ArrayList<String>();
-                    for (int i = 0; i < MonopolyConstants.PLAYER_NAMES.length; i++) { // Move all of the names from the array into an arraylist
-                        names.add(MonopolyConstants.PLAYER_NAMES[i]);
-                    }
+                    ArrayList<String> names = new ArrayList<>();
+                    Collections.addAll(names, MonopolyConstants.PLAYER_NAMES);
                     Collections.shuffle(names); // Shuffle the list of names
                     for (int i = 0; i < players.length; i++) { // Pick names from the shuffled list, starting from the start to avoid collisions in names
                         players[i] = new Player(names.get(i));
@@ -118,20 +123,17 @@ public class TextBasedDriver implements PlayerListener {
             }
         }
 
-        for (int i = 0; i < players.length; i++) {
-            players[i].addListener(this);
+        for (Player player : players) {
+            player.addListener(this);
         }
 
         playerHasWon = false; // Boolean describing whether any player in the game has won yet and therefor if the game loop should be stopped.
         while (!playerHasWon) {
-            for (int i = 0; i < players.length; i++) {
-                Player currentPlayer = players[i];
+            for (Player currentPlayer : players) {
                 doPlayerTurn(diceCup, currentPlayer);
-                /*if(currentPlayer.getRounds() >= 4) { // If the player has passed start 4 times
-                    playerHasWon = true;
-                    System.out.println(currentPlayer.getName() + " has won!");
+                if (playerHasWon) {
                     break;
-                }*/
+                }
             }
         }
     }
@@ -150,7 +152,7 @@ public class TextBasedDriver implements PlayerListener {
                 return;
             }
             currentPlayer.move(dices.getSum());
-            if (dices.isPair()) {
+            if (dices.isPair() && !currentPlayer.isJailed()) {
                 System.out.println(currentPlayer.getName() + " throwing again.");
             }
         } while (dices.isPair() && !currentPlayer.isJailed());

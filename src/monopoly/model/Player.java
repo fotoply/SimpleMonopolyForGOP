@@ -58,30 +58,34 @@ public class Player {
         this(name, 0, Colors.values()[(int) (Math.random() * Colors.values().length)]);
     }
 
+    /**
+     * Adds a player listener to this player, which will be called when any of the relevant events occur
+     *
+     * @param listener a class implementing the PlayerListener interface
+     */
     public void addListener(PlayerListener listener) {
         listeners.add(listener);
     }
 
     /**
      * Moves the player distance. Will wrap around when the player reaches the 40'th field.
-     *
      * @param distance The distance to move the player
      */
     public void move(int distance) {
-        for (int i = 0; i < listeners.size(); i++) {
-            int newDistance = listeners.get(i).playerMoveStart(this, distance); // Check if any of the listeners have cancelled the movement
-            if (newDistance == 0) {
-                continue;
-            } else if (newDistance < 0) {
-                return;
-            } else {
-                distance = newDistance;
+        for (PlayerListener listener : listeners) {
+            int newDistance = listener.playerMoveStart(this, distance); // Check if any of the listeners have cancelled the movement
+            if (newDistance != 0) {
+                if (newDistance < 0) {
+                    return;
+                } else {
+                    distance = newDistance;
+                }
             }
         }
         playerPassedStart = false;
         int oldPos = pos;
         setPos((pos + distance) % MonopolyConstants.BOARDSIZE);
-        if (oldPos > pos && jailed != true) {
+        if (oldPos > pos && !jailed) {
             playerPassedStart = true;
             for (int i = 0; i < listeners.size() && listeners.get(i) != null; i++) {
                 listeners.get(i).playerPassedStart(this);
@@ -89,6 +93,9 @@ public class Player {
         }
     }
 
+    /**
+     * Sends the player to the jail field and marks them as jailed
+     */
     public void sendToJail() {
         jailed = true;
         setPos(MonopolyConstants.JAIL_POS);
@@ -96,7 +103,6 @@ public class Player {
 
     /**
      * Attempts to buy the field for player. Will allow an already owned field to be bought (transfered)
-     *
      * @param field which field to buy
      * @return true if the field was bought, otherwise false
      */
@@ -154,10 +160,7 @@ public class Player {
      * @return true if the player can pay that much otherwise false
      */
     public boolean canPay(int amount) {
-        if (this.money >= amount) {
-            return true;
-        }
-        return false;
+        return this.money >= amount;
     }
 
     public String getName() {

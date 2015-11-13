@@ -11,6 +11,9 @@ public interface MonopolyConstants {
     int STATETAX = 100;
     int BOARDSIZE = 40;
 
+    /**
+     * Names for the different fields on the board. Contains 40 names per default
+     */
     String[] FIELD_NAMES = {
             "Start", "Rødovrevej", "?", "Hvidovrevej", "Indkomstskat", "Øresund A/S",
             "Roskildevej", "?", "Valby Langgade", "Allégade", "Fængsel", "Frederiksberg Allé", "Tuborg",
@@ -19,6 +22,10 @@ public interface MonopolyConstants {
             "Kgs Nytorv", "Carlsberg", "Østergade", "Gå i Fængsel!", "Amagertorv", "Vimmelskaftet", "?", "Nygade",
             "D/S Bornholm 1866", "?", "Frederiksberg Allé", "Statsskat", "Rådhuspladsen"
     };
+
+    /**
+     * Fictional player names for quickly generating names
+     */
     String[] PLAYER_NAMES = {
             "Karl", "Bob", "Sally", "Vigo", "Michael", "Muhammad", "Andreas", "Mads", "Erik", "Shahab", "Tif", "David",
             "John", "Paul", "Mark", "James", "Andrew", "Scott", "Steven", "Robert", "Stephen", "William", "Craig",
@@ -28,5 +35,5 @@ public interface MonopolyConstants {
             "Jonathan", "Gavi1n", "Nicholas"
     };
 
-    public enum Colors {RED, BLUE, GREEN, YELLOW, BLACK, PURPLE, ORANGE, GREY, PINK, LIGHTBLUE, LIGHTGREEN}
+    enum Colors {RED, BLUE, GREEN, YELLOW, BLACK, PURPLE, ORANGE, GREY, PINK, LIGHTBLUE, LIGHTGREEN}
 }

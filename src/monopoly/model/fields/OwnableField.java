@@ -28,6 +28,11 @@ public abstract class OwnableField implements FieldInterface {
         return number;
     }
 
+    /**
+     * Is called when any player lands on this field.
+     *
+     * @param player which player has just landed on the field
+     */
     public abstract void fieldEvent(Player player); // Is required but not declared by default
 
     public int getPrice() {

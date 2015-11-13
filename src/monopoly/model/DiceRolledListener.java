@@ -5,9 +5,10 @@ package monopoly.model;
  */
 public interface DiceRolledListener {
     /**
-     * Will be called when the dice is rolled in a dice class
+     * Will be called when the dice is rolled in a dice class which is being listened to.
+     * Is called after the dice roll is done
      *
      * @param dice the dice that has been rolled
      */
-    public void diceRolled(Dice dice);
+    void diceRolled(Dice dice);
 }

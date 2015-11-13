@@ -6,16 +6,17 @@ import monopoly.model.Player;
  * @author Niels Norberg
  */
 public interface FieldInterface {
-    public String getName();
+    String getName();
 
-    public int getNumber();
+    int getNumber();
 
     /**
      * Triggers when a player lands on the field
+     * Is triggered
      *
      * @param player which player has just landed on the field
      */
-    public void fieldEvent(Player player);
+    void fieldEvent(Player player);
 
 
 }

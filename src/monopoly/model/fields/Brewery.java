@@ -7,7 +7,7 @@ import monopoly.model.Player;
  * @author Niels Norberg
  */
 public class Brewery extends OwnableField {
-    Dice dices;
+    private Dice dices;
 
     public Brewery(String name, int number, Dice dice, int price) {
         super(name, number, price);
