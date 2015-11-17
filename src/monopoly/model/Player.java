@@ -2,6 +2,8 @@ package monopoly.model;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import monopoly.model.MonopolyConstants.Colors;
 import monopoly.model.fields.OwnableField;
 
@@ -22,7 +24,7 @@ public class Player {
     private Colors color; // The color of the player
     private int rounds; // How many rounds the player has completed
     private boolean playerPassedStart; // If a player passed start in the current turn
-    private ArrayList<OwnableField> ownedFields = new ArrayList<>();
+    private ObservableList<OwnableField> ownedFields = FXCollections.observableArrayList();
     private ArrayList<PlayerListener> listeners = new ArrayList<>();
     private boolean jailed = false;
 
@@ -170,6 +172,18 @@ public class Player {
     }
 
     /**
+     * Rewards the player with a given amount of money. Cannot be negative!
+     *
+     * @param amount how much money to give the player
+     */
+    public void reward(int amount) {
+        if (amount < 0) {
+            return;
+        }
+        setMoney(getMoney() + amount);
+    }
+
+    /**
      * Transfers money from the player it is called on to the recieving player
      *
      * @param amount          how much money to transfer. Can be negative
@@ -207,7 +221,7 @@ public class Player {
         return rounds;
     }
 
-    public ArrayList<OwnableField> getOwnedFields() {
+    public ObservableList<OwnableField> getOwnedFields() {
         return ownedFields;
     }
 

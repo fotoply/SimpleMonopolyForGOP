@@ -166,7 +166,7 @@ public class JavaFXDriver extends Application implements PlayerListener {
             return;
         }
         player.addRound();
-        player.pay(-MonopolyConstants.PASSING_START);
+        player.reward(MonopolyConstants.PASSING_START);
         System.out.println(player.getName() + " just passed start and got " + MonopolyConstants.PASSING_START);
     }
 
