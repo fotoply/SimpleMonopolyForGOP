@@ -89,11 +89,10 @@ public class JavaFXDriver extends Application implements PlayerListener {
         int groupId = 0;
         int subVal = 0;
         for (int i = 0; i < MonopolyConstants.BOARDSIZE; i++) { // Initialize the board with different fields
-            if (subVal == 3) {
+            if (subVal == 3 || i == 3) {
                 groupId++;
                 subVal = 0;
             }
-            subVal++;
             switch (i + 1) {
                 case 1:    // Andre felter
                 case 3:
@@ -124,6 +123,7 @@ public class JavaFXDriver extends Application implements PlayerListener {
                     break;
                 default:    // Gader:
                     board[i] = new StreetField(MonopolyConstants.FIELD_NAMES[i], i + 1, i * 3, i * 10, groupId);
+                    subVal++;
             }
         }
     }
@@ -131,6 +131,11 @@ public class JavaFXDriver extends Application implements PlayerListener {
     public void doPlayerTurn() {
         if (currentPlayer == null) {
             currentPlayer = players.get(0);
+            /*currentPlayer.getOwnedFields().add((StreetField)board[1]);
+            currentPlayer.getOwnedFields().add((StreetField)board[3]);
+
+            ((StreetField)board[1]).setOwner(currentPlayer); debugging code
+            ((StreetField)board[3]).setOwner(currentPlayer);*/
         }
         if (diceCup.isPair()) {
             timesSame++;
@@ -148,6 +153,9 @@ public class JavaFXDriver extends Application implements PlayerListener {
             }
         }
         diceCup.throwDice();
+        if (diceCup.isPair()) {
+            System.out.println("It's a pair!");
+        }
         currentPlayer.move(diceCup.getSum());
         mainViewController.updateButtons();
     }

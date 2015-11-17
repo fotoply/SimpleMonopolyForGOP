@@ -46,7 +46,7 @@ public class StreetField extends OwnableField {
             }
         }
 
-        return (othersFound == 2) || (othersFound == 1 && (getNumber() == 37 || getNumber() == 39));
+        return (othersFound == 2) || (othersFound == 1 && (getNumber() == 38 || getNumber() == 40 || getNumber() == 2 || getNumber() == 4));
 
     }
 
@@ -55,8 +55,9 @@ public class StreetField extends OwnableField {
      */
     public void upgrade() {
         if (canUpgrade()) {
-            getOwner().pay(rent / 2);
+            getOwner().pay(getPrice() / 2);
             setUpgrades(getUpgrades() + 1);
+            System.out.println(getOwner().getName() + " just upgraded " + getName());
         }
     }
 
@@ -75,7 +76,7 @@ public class StreetField extends OwnableField {
                 player.pay(player.getMoney(),getOwner());
             } else {
                 player.pay(rent * (getUpgrades() + 1),getOwner());
-                System.out.println(player.getName() + " paid " + rent + " to " + getOwner().getName());
+                System.out.println(player.getName() + " paid " + rent + " to " + getOwner().getName() + " for landing on " + getName());
             }
         }
     }

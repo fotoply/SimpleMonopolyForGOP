@@ -105,6 +105,7 @@ public class MainViewController implements DiceRolledListener {
     @FXML
     void upgradeFieldClicked(ActionEvent event) {
         driver.upgradeCurrentField();
+        updateButtons();
     }
 
     @FXML
