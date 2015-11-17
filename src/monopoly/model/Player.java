@@ -1,5 +1,7 @@
 package monopoly.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import monopoly.model.MonopolyConstants.Colors;
 import monopoly.model.fields.OwnableField;
 
@@ -12,12 +14,14 @@ import java.util.Arrays;
  * @author Niels Norberg
  */
 public class Player {
+    // moneyProperty
+    private final IntegerProperty moneyProperty = new SimpleIntegerProperty(this, "money");
+    // posProperty
+    private final IntegerProperty posProperty = new SimpleIntegerProperty(this, "pos");
     private String name; // The player's name
-    private int pos; // The player's position on the board
     private Colors color; // The color of the player
     private int rounds; // How many rounds the player has completed
     private boolean playerPassedStart; // If a player passed start in the current turn
-    private int money = MonopolyConstants.START_MONEY;
     private ArrayList<OwnableField> ownedFields = new ArrayList<>();
     private ArrayList<PlayerListener> listeners = new ArrayList<>();
     private boolean jailed = false;
@@ -32,10 +36,10 @@ public class Player {
      */
     public Player(String name, int pos, Colors color, int money) {
         this.name = name;
-        this.pos = pos;
+        setPos(pos);
         this.color = color;
         this.rounds = 0;
-        this.money = money;
+        setMoney(money);
     }
 
     /**
@@ -48,7 +52,6 @@ public class Player {
     public Player(String name, int pos, Colors color) {
         this(name, pos, color, MonopolyConstants.START_MONEY);
     }
-
     /**
      * Initialises the player, can be overloaded with position and color
      *
@@ -56,6 +59,33 @@ public class Player {
      */
     public Player(String name) {
         this(name, 0, Colors.values()[(int) (Math.random() * Colors.values().length)]);
+    }
+
+    public final IntegerProperty posProperty() {
+        return posProperty;
+    }
+
+    public final int getPos() {
+        return posProperty.get();
+    }
+
+    public final void setPos(int value) {
+        posProperty.set(value);
+        for (int i = 0; i < listeners.size() && listeners.get(i) != null; i++) {
+            listeners.get(i).playerPositionChanged(this);
+        }
+    }
+
+    public final IntegerProperty moneyProperty() {
+        return moneyProperty;
+    }
+
+    public final int getMoney() {
+        return moneyProperty.get();
+    }
+
+    public final void setMoney(int value) {
+        moneyProperty.set(value);
     }
 
     /**
@@ -69,6 +99,7 @@ public class Player {
 
     /**
      * Moves the player distance. Will wrap around when the player reaches the 40'th field.
+     *
      * @param distance The distance to move the player
      */
     public void move(int distance) {
@@ -83,9 +114,9 @@ public class Player {
             }
         }
         playerPassedStart = false;
-        int oldPos = pos;
-        setPos((pos + distance) % MonopolyConstants.BOARDSIZE);
-        if (oldPos > pos && !jailed) {
+        int oldPos = getPos();
+        setPos((getPos() + distance) % MonopolyConstants.BOARDSIZE);
+        if (oldPos > getPos() && !jailed) {
             playerPassedStart = true;
             for (int i = 0; i < listeners.size() && listeners.get(i) != null; i++) {
                 listeners.get(i).playerPassedStart(this);
@@ -103,6 +134,7 @@ public class Player {
 
     /**
      * Attempts to buy the field for player. Will allow an already owned field to be bought (transfered)
+     *
      * @param field which field to buy
      * @return true if the field was bought, otherwise false
      */
@@ -131,7 +163,7 @@ public class Player {
      */
     public boolean pay(int amount) {
         if (canPay(amount)) {
-            money -= amount;
+            setMoney(getMoney() - amount);
             return true;
         }
         return false;
@@ -160,22 +192,11 @@ public class Player {
      * @return true if the player can pay that much otherwise false
      */
     public boolean canPay(int amount) {
-        return this.money >= amount;
+        return getMoney() >= amount;
     }
 
     public String getName() {
         return name;
-    }
-
-    public int getPos() {
-        return pos;
-    }
-
-    public void setPos(int pos) {
-        this.pos = pos;
-        for (int i = 0; i < listeners.size() && listeners.get(i) != null; i++) {
-            listeners.get(i).playerPositionChanged(this);
-        }
     }
 
     public Colors getColor() {
@@ -184,10 +205,6 @@ public class Player {
 
     public int getRounds() {
         return rounds;
-    }
-
-    public int getMoney() {
-        return money;
     }
 
     public ArrayList<OwnableField> getOwnedFields() {
@@ -217,11 +234,11 @@ public class Player {
     public String toString() {
         return "Player{" +
                 "name='" + name + '\'' +
-                ", pos=" + pos +
+                ", pos=" + getPos() +
                 ", color=" + color +
                 ", rounds=" + rounds +
                 ", playerPassedStart=" + playerPassedStart +
-                ", money=" + money +
+                ", money=" + getMoney() +
                 ", ownedFields=" + Arrays.toString(ownedFields.toArray()) +
                 ", listeners=" + listeners +
                 ", jailed=" + jailed +

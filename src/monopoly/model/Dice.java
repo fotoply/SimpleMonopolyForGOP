@@ -49,4 +49,16 @@ public class Dice {
     public void addListener(DiceRolledListener newListener) {
         listeners.add(newListener);
     }
+
+    /**
+     * Get both the die as individual objects
+     *
+     * @return An arraylist with the dices
+     */
+    public ArrayList<Die> getDice() {
+        ArrayList<Die> dices = new ArrayList<>();
+        dices.add(die1);
+        dices.add(die2);
+        return dices;
+    }
 }
