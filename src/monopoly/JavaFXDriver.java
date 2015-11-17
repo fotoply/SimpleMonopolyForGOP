@@ -132,18 +132,14 @@ public class JavaFXDriver extends Application implements PlayerListener {
         if (currentPlayer == null) {
             currentPlayer = players.get(0);
         }
-        diceCup.throwDice();
         if (diceCup.isPair()) {
             timesSame++;
             if (timesSame == 3) {
                 currentPlayer.sendToJail();
                 System.out.println(currentPlayer.getName() + " was caught and sent to jail");
                 return;
-            } else {
-                currentPlayer.move(diceCup.getSum());
             }
         } else {
-            currentPlayer.move(diceCup.getSum());
             timesSame = 0;
             if (players.indexOf(currentPlayer) == players.size() - 1) {
                 this.currentPlayer = players.get(0);
@@ -151,6 +147,38 @@ public class JavaFXDriver extends Application implements PlayerListener {
                 this.currentPlayer = players.get(players.indexOf(currentPlayer) + 1);
             }
         }
+        diceCup.throwDice();
+        currentPlayer.move(diceCup.getSum());
+        mainViewController.updateButtons();
+    }
+
+    public void buyCurrentField() {
+        if (currentPlayerCanBuy()) {
+            currentPlayer.buyField((StreetField) board[currentPlayer.getPos()]);
+        }
+    }
+
+    public void upgradeCurrentField() {
+        if (currentPlayerCanUpgrade()) {
+            ((StreetField) board[currentPlayer.getPos()]).upgrade();
+        }
+    }
+
+    public boolean currentPlayerCanBuy() {
+        return currentPlayer.canBuyField(board[currentPlayer.getPos()]);
+    }
+
+    public FieldInterface getCurrentField() {
+        return board[currentPlayer.getPos()];
+    }
+
+    public boolean currentPlayerCanUpgrade() {
+        if (board[currentPlayer.getPos()] instanceof StreetField) {
+            if (((StreetField) board[currentPlayer.getPos()]).canUpgrade() && ((StreetField) board[currentPlayer.getPos()]).getOwner() == currentPlayer) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

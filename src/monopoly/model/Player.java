@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import monopoly.model.MonopolyConstants.Colors;
+import monopoly.model.fields.FieldInterface;
 import monopoly.model.fields.OwnableField;
 
 import java.util.ArrayList;
@@ -135,6 +136,22 @@ public class Player {
     }
 
     /**
+     * Returns whether a player can buy a field.
+     *
+     * @param field the field to be tested
+     * @return true if the player can buy it otherwise false
+     */
+    public boolean canBuyField(FieldInterface field) {
+        if (!(field instanceof OwnableField)) {
+            return false;
+        }
+
+        OwnableField ownableField = (OwnableField) field;
+
+        return canPay(ownableField.getPrice()) && ownableField.getOwner() == null;
+    }
+
+    /**
      * Attempts to buy the field for player. Will allow an already owned field to be bought (transfered)
      *
      * @param field which field to buy
@@ -145,7 +162,7 @@ public class Player {
             pay(field.getPrice());
             if (field.getOwner() != null) {
                 field.getOwner().getOwnedFields().remove(field);
-                field.getOwner().pay(-field.getPrice());
+                field.getOwner().reward(field.getPrice());
             }
             field.setOwner(this);
             getOwnedFields().add(field);
@@ -193,7 +210,7 @@ public class Player {
     public boolean pay(int amount, Player receivingPlayer) {
         if (canPay(amount)) {
             pay(amount);
-            receivingPlayer.pay(-amount);
+            receivingPlayer.reward(amount);
             return true;
         }
         return false;

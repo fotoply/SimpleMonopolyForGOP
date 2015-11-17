@@ -18,6 +18,10 @@ public abstract class OwnableField implements FieldInterface {
         this.price = price;
     }
 
+    public boolean canBuy(Player player) {
+        return player.canPay(price) && getOwner() == null;
+    }
+
     @Override
     public String getName() {
         return name;

@@ -16,7 +16,6 @@ public class ShippingCompany extends OwnableField {
     @Override
     public void fieldEvent(Player player) {
         if (getOwner() == null) {
-            player.buyField(this);
             return;
         }
 

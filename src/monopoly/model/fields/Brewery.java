@@ -17,7 +17,6 @@ public class Brewery extends OwnableField {
     @Override
     public void fieldEvent(Player player) {
         if (getOwner() == null) {
-            player.buyField(this);
             return;
         }
 

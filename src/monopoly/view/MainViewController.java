@@ -11,10 +11,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import monopoly.JavaFXDriver;
 import monopoly.model.Dice;
 import monopoly.model.DiceRolledListener;
 import monopoly.model.Player;
+import monopoly.model.fields.StreetField;
 
 public class MainViewController implements DiceRolledListener {
 
@@ -48,6 +50,14 @@ public class MainViewController implements DiceRolledListener {
     private Button die2;
     @FXML
     private TextField playerNameField;
+    @FXML
+    private Button buyFieldButton;
+    @FXML
+    private Button upgradeFieldButton;
+    @FXML
+    private Text currentFieldText;
+    @FXML
+    private Text currentUpgradesText;
 
     @Override
     public void diceRolled(Dice dice) {
@@ -90,5 +100,39 @@ public class MainViewController implements DiceRolledListener {
     @FXML
     void startButtonClicked(ActionEvent event) {
         driver.doPlayerTurn();
+    }
+
+    @FXML
+    void upgradeFieldClicked(ActionEvent event) {
+        driver.upgradeCurrentField();
+    }
+
+    @FXML
+    void buyFieldClicked(ActionEvent event) {
+        driver.buyCurrentField();
+    }
+
+    public void updateButtons() {
+        if (driver.currentPlayerCanBuy()) {
+            buyFieldButton.setDisable(false);
+        } else {
+            buyFieldButton.setDisable(true);
+        }
+
+        if (driver.currentPlayerCanUpgrade()) {
+            upgradeFieldButton.setDisable(false);
+        } else {
+            upgradeFieldButton.setDisable(true);
+        }
+
+        currentFieldText.setText(driver.getCurrentField().getName());
+        if (driver.getCurrentField() instanceof StreetField) {
+            upgradeFieldButton.setVisible(true);
+            currentUpgradesText.setVisible(true);
+            currentUpgradesText.setText(((StreetField) driver.getCurrentField()).getUpgrades() + "");
+        } else {
+            upgradeFieldButton.setVisible(false);
+            currentUpgradesText.setVisible(false);
+        }
     }
 }
