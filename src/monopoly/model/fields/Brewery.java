@@ -17,6 +17,7 @@ public class Brewery extends OwnableField {
     @Override
     public void fieldEvent(Player player) {
         if (getOwner() == null) {
+            System.out.println(player.getName() + " landed on " + getName() + " which is unowned");
             return;
         }
 
@@ -28,7 +29,13 @@ public class Brewery extends OwnableField {
                     brewsOwned += 1;
                 }
             }
-            player.pay(tempPrice * brewsOwned * 10, getOwner());
+            if (!player.canPay(tempPrice * brewsOwned * 10)) {
+                System.out.println(player.getName() + " landed on " + getName() + " and is unable to pay " + getOwner().getName());
+                player.pay(player.getMoney(), getOwner());
+            } else {
+                System.out.println(player.getName() + " landed on " + getName() + " which is owned by " + getOwner().getName() + " and paid rent of " + tempPrice);
+                player.pay(tempPrice * brewsOwned * 10, getOwner());
+            }
         }
     }
 }

@@ -127,12 +127,9 @@ public class MainViewController implements DiceRolledListener {
 
         currentFieldText.setText(driver.getCurrentField().getName());
         if (driver.getCurrentField() instanceof StreetField) {
-            upgradeFieldButton.setVisible(true);
-            currentUpgradesText.setVisible(true);
             currentUpgradesText.setText(((StreetField) driver.getCurrentField()).getUpgrades() + "");
         } else {
-            upgradeFieldButton.setVisible(false);
-            currentUpgradesText.setVisible(false);
+            currentUpgradesText.setText("Not upgradeable");
         }
     }
 }

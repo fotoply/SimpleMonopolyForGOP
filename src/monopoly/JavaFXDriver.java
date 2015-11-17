@@ -154,7 +154,7 @@ public class JavaFXDriver extends Application implements PlayerListener {
 
     public void buyCurrentField() {
         if (currentPlayerCanBuy()) {
-            currentPlayer.buyField((StreetField) board[currentPlayer.getPos()]);
+            currentPlayer.buyField((OwnableField) board[currentPlayer.getPos()]);
         }
     }
 
@@ -188,7 +188,7 @@ public class JavaFXDriver extends Application implements PlayerListener {
 
     @Override
     public void playerPassedStart(Player player) {
-        if (player.getRounds() > 6) {
+        if (player.getRounds() > 1000) { // Game should not end after any sensible amount of rounds
             playerHasWon = true;
             System.out.println(player.getName() + " has won!");
             return;

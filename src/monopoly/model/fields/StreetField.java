@@ -63,6 +63,7 @@ public class StreetField extends OwnableField {
     @Override
     public void fieldEvent(Player player) {
         if (getOwner() == null) {
+            System.out.println(player.getName() + " landed on " + getName() + " which is unowned");
             return;
         }
 
