@@ -78,6 +78,10 @@ public class JavaFXDriver extends Application implements PlayerListener {
     public void removePlayer(String name) {
         for (Player player : players) {
             if (player.getName().equals(name)) {
+                for (OwnableField field : player.getOwnedFields()) {
+                    field.setOwner(null);
+                }
+                player.getOwnedFields().clear();
                 players.remove(player);
                 return;
             }

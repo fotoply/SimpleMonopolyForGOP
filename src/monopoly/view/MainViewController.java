@@ -111,6 +111,7 @@ public class MainViewController implements DiceRolledListener {
     @FXML
     void buyFieldClicked(ActionEvent event) {
         driver.buyCurrentField();
+        updateButtons();
     }
 
     public void updateButtons() {
