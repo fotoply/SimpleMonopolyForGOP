@@ -21,14 +21,14 @@ public class Player {
     private final IntegerProperty moneyProperty = new SimpleIntegerProperty(this, "money");
     // posProperty
     private final IntegerProperty posProperty = new SimpleIntegerProperty(this, "pos");
+    // roundsProperty
+    private final IntegerProperty roundsProperty = new SimpleIntegerProperty(this, "rounds");
     private String name; // The player's name
     private Colors color; // The color of the player
-    private int rounds; // How many rounds the player has completed
     private boolean playerPassedStart; // If a player passed start in the current turn
     private ObservableList<OwnableField> ownedFields = FXCollections.observableArrayList();
     private ArrayList<PlayerListener> listeners = new ArrayList<>();
     private boolean jailed = false;
-
     /**
      * Initialises the player
      *
@@ -41,10 +41,9 @@ public class Player {
         this.name = name;
         setPos(pos);
         this.color = color;
-        this.rounds = 0;
+        setRounds(0);
         setMoney(money);
     }
-
     /**
      * Initialises the player
      *
@@ -62,6 +61,18 @@ public class Player {
      */
     public Player(String name) {
         this(name, 0, Colors.values()[(int) (Math.random() * Colors.values().length)]);
+    }
+
+    public final IntegerProperty roundsProperty() {
+        return roundsProperty;
+    }
+
+    public final int getRounds() {
+        return roundsProperty.get();
+    }
+
+    public final void setRounds(int value) {
+        roundsProperty.set(value);
     }
 
     public final IntegerProperty posProperty() {
@@ -234,16 +245,12 @@ public class Player {
         return color;
     }
 
-    public int getRounds() {
-        return rounds;
-    }
-
     public ObservableList<OwnableField> getOwnedFields() {
         return ownedFields;
     }
 
     public void addRound() {
-        rounds++;
+        setRounds(getRounds() + 1);
     }
 
     /**
@@ -267,7 +274,7 @@ public class Player {
                 "name='" + name + '\'' +
                 ", pos=" + getPos() +
                 ", color=" + color +
-                ", rounds=" + rounds +
+                ", rounds=" + getRounds() +
                 ", playerPassedStart=" + playerPassedStart +
                 ", money=" + getMoney() +
                 ", ownedFields=" + Arrays.toString(ownedFields.toArray()) +
