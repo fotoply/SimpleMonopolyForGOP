@@ -46,7 +46,7 @@ public class StreetField extends OwnableField {
             }
         }
 
-        return (othersFound == 2) || (othersFound == 1 && (getNumber() == 38 || getNumber() == 40 || getNumber() == 2 || getNumber() == 4));
+        return (othersFound == 3) || (othersFound == 2 && (getNumber() == 38 || getNumber() == 40 || getNumber() == 2 || getNumber() == 4));
 
     }
 

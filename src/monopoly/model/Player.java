@@ -2,6 +2,8 @@ package monopoly.model;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import monopoly.model.MonopolyConstants.Colors;
@@ -23,12 +25,14 @@ public class Player {
     private final IntegerProperty posProperty = new SimpleIntegerProperty(this, "pos");
     // roundsProperty
     private final IntegerProperty roundsProperty = new SimpleIntegerProperty(this, "rounds");
-    private String name; // The player's name
+    // nameProperty
+    private final StringProperty nameProperty = new SimpleStringProperty(this, "name");
     private Colors color; // The color of the player
     private boolean playerPassedStart; // If a player passed start in the current turn
     private ObservableList<OwnableField> ownedFields = FXCollections.observableArrayList();
     private ArrayList<PlayerListener> listeners = new ArrayList<>();
     private boolean jailed = false;
+
     /**
      * Initialises the player
      *
@@ -38,12 +42,13 @@ public class Player {
      * @param money starting money of the player
      */
     public Player(String name, int pos, Colors color, int money) {
-        this.name = name;
+        setName(name);
         setPos(pos);
         this.color = color;
         setRounds(0);
         setMoney(money);
     }
+
     /**
      * Initialises the player
      *
@@ -61,6 +66,18 @@ public class Player {
      */
     public Player(String name) {
         this(name, 0, Colors.values()[(int) (Math.random() * Colors.values().length)]);
+    }
+
+    public final StringProperty nameProperty() {
+        return nameProperty;
+    }
+
+    public final String getName() {
+        return nameProperty.get();
+    }
+
+    public final void setName(String value) {
+        nameProperty.set(value);
     }
 
     public final IntegerProperty roundsProperty() {
@@ -237,10 +254,6 @@ public class Player {
         return getMoney() >= amount;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public Colors getColor() {
         return color;
     }
@@ -271,7 +284,7 @@ public class Player {
     @Override
     public String toString() {
         return "Player{" +
-                "name='" + name + '\'' +
+                "name='" + getName() + '\'' +
                 ", pos=" + getPos() +
                 ", color=" + color +
                 ", rounds=" + getRounds() +

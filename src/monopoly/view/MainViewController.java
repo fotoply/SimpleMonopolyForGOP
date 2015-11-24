@@ -7,7 +7,6 @@ package monopoly.view;
  */
 
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -67,7 +66,7 @@ public class MainViewController implements DiceRolledListener {
 
     @FXML
     private void initialize() {
-        playerNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getName()));
+        playerNameColumn.setCellValueFactory(param -> param.getValue().nameProperty());
         playerMoneyColumn.setCellValueFactory(param -> param.getValue().moneyProperty().asObject());
         currentFieldColumn.setCellValueFactory(param -> param.getValue().posProperty().asObject());
     }
