@@ -1,7 +1,8 @@
 package monopoly.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.Scanner;
 
 /**
  * Same as Dice class, except it allows any number of die in the cup
@@ -27,17 +28,57 @@ public class DieCup {
     /**
      * Main method for testing
      *
-     * @param args
      */
     public static void main(String[] args) {
-        DieCup cup = new DieCup(3, 6);
-        //cup.addDie(new Die(5));
-        //cup.addDie(new Die(2));
+        DieCup cup = new DieCup(0, 0);
+
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            String response = scanner.nextLine();
+
+            if (!response.contains("d")) {
+                System.out.println(response + " is not a valid die, try again");
+            }
+
+            ArrayList<String> dieInputs = new ArrayList<>();
+            Collections.addAll(dieInputs, response.split(" "));
+
+            for (String dieString : dieInputs) {
+                String[] construct = dieString.split("d");
+                if (construct.length > 2 || construct.length < 2) {
+                    System.out.println(dieString + " is not a valid die, try again");
+                    break;
+                }
+                try {
+                    for (int i = 0; i < Integer.parseInt(construct[0]); i++) {
+                        Die tempDie = new Die(Integer.parseInt(construct[1]));
+                        cup.addDie(tempDie);
+                    }
+                } catch (Exception e) {
+                    System.out.println(dieString + " is not a valid die, try again");
+                    break;
+                }
+            }
+
+            cup.throwDice();
+            System.out.println("");
+            System.out.println("Sum: " + cup.getSum());
+
+            //System.out.println(cup);
+
+            cup.dices.clear();
+        }
+
+
+        /*DieCup cup = new DieCup(3, 6);
+        cup.addDie(new Die(5));
+        cup.addDie(new Die(2));
         for (int i = 0; i < 10; i++) {
             System.out.println(cup.throwDice());
             System.out.println("Same: " + cup.sameFace());
             System.out.println(Arrays.toString(cup.dices.toArray()));
-        }
+        }*/
     }
 
     /**
@@ -73,8 +114,9 @@ public class DieCup {
      */
     public int throwDice() {
         int sum = 0;
-        for (int i = 0; i < dices.size(); i++) {
-            sum += dices.get(i).rollDie();
+        for (Die dice : dices) {
+            sum += dice.rollDie();
+            System.out.print(dice.getResult() + " ");
         }
         return sum;
     }
@@ -100,9 +142,18 @@ public class DieCup {
      */
     public int getSum() {
         int sum = 0;
-        for (int i = 0; i < dices.size(); i++) {
-            sum += dices.get(i).rollDie();
+        for (Die dice : dices) {
+            sum += dice.rollDie();
         }
         return sum;
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+        for (Die die : dices) {
+            result += die.getResult() + " ";
+        }
+        return result;
     }
 }
