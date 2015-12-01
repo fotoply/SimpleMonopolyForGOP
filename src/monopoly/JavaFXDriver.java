@@ -93,7 +93,7 @@ public class JavaFXDriver extends Application implements PlayerListener {
         int groupId = 0;
         int subVal = 0;
         for (int i = 0; i < MonopolyConstants.BOARDSIZE; i++) { // Initialize the board with different fields
-            if (subVal == 3 || i == 3) {
+            if (subVal == 3 || i == 4) {
                 groupId++;
                 subVal = 0;
             }

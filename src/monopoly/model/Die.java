@@ -30,7 +30,6 @@ public class Die {
      */
     public int rollDie() {
         result = rnd.nextInt(sides) + 1;
-        rnd.nextInt(2);
         return result;
     }
 
